@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mariposa STR Investment Navigator: 6281 Pine Canyon Rd</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Visualization & Content Choices: 
+
+        - Overview: Key takeaways via interactive cards (HTML/JS) for a quick summary.
+
+        - Market Trends: Bar chart (Chart.js) for visitor spending (Goal: Compare, Show Trend). Pie chart (Chart.js) for visitor origin (Goal: Show Proportions). Dynamic stats for Yosemite visitation and STR benchmarks (Goal: Inform).
+
+        - Property Specifics: Interactive info blocks (HTML/JS) for well/septic details (Goal: Inform, Highlight Risk).
+
+        - Financials: Bar/Pie chart for operational cost breakdown (Chart.js) (Goal: Show Proportions). Dynamic stats for revenue and acquisition cost ranges (Goal: Inform).
+
+        - Risks & Regulations: Clickable info cards for permit requirements and regulatory changes (HTML/JS) (Goal: Organize, Inform).
+
+        - Justification: Chosen methods aim for clarity, interactivity, and quick comprehension of complex data points, tailored to an investor's decision-making process. All visualizations are Canvas-based.
+
+    -->
+
+    <style>
+
+        body { font-family: 'Inter', sans-serif; }
+
+        .nav-link { transition: all 0.3s ease; }
+
+        .nav-link.active { border-bottom-width: 2px; }
+
+        .content-section { display: none; }
+
+        .content-section.active { display: block; }
+
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+
+        .stat-card { background-color: #FFFBEB; border: 1px solid #FDE68A; } /* amber-50 bg, amber-300 border */
+
+        .info-card { background-color: #F9FAFB; border: 1px solid #E5E7EB; } /* gray-50 bg, gray-200 border */
+
+        .clickable-details summary { cursor: pointer; font-weight: 600; }
+
+    </style>
+
+</head>
+
+<body class="bg-amber-50 text-neutral-800">
+
+
+
+    <header class="bg-orange-600 text-white shadow-lg sticky top-0 z-50">
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex items-center justify-between h-16">
+
+                <h1 class="text-xl sm:text-2xl font-bold">Mariposa STR Investment Navigator</h1>
+
+            </div>
+
+            <nav class="flex flex-wrap justify-center sm:justify-start space-x-2 sm:space-x-4 pb-2">
+
+                <button data-target="overview" class="nav-link active text-sm sm:text-base py-2 px-2 sm:px-3 font-medium text-white hover:text-amber-200 border-amber-200">Overview</button>
+
+                <button data-target="market" class="nav-link text-sm sm:text-base py-2 px-2 sm:px-3 font-medium text-white hover:text-amber-200 border-transparent hover:border-amber-200">Market</button>
+
+                <button data-target="property" class="nav-link text-sm sm:text-base py-2 px-2 sm:px-3 font-medium text-white hover:text-amber-200 border-transparent hover:border-amber-200">Property</button>
+
+                <button data-target="financials" class="nav-link text-sm sm:text-base py-2 px-2 sm:px-3 font-medium text-white hover:text-amber-200 border-transparent hover:border-amber-200">Financials</button>
+
+                <button data-target="risks" class="nav-link text-sm sm:text-base py-2 px-2 sm:px-3 font-medium text-white hover:text-amber-200 border-transparent hover:border-amber-200">Risks & Regs</button>
+
+                <button data-target="verdict" class="nav-link text-sm sm:text-base py-2 px-2 sm:px-3 font-medium text-white hover:text-amber-200 border-transparent hover:border-amber-200">Verdict</button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <section id="overview" class="content-section active space-y-6">
+
+            <div class="bg-stone-100 p-6 rounded-lg shadow">
+
+                <h2 class="text-2xl font-semibold text-orange-700 mb-3">Investment Overview: 6281 Pine Canyon Rd</h2>
+
+                <p class="text-neutral-700 leading-relaxed">
+
+                    Welcome to this interactive analysis of 6281 Pine Canyon Rd, Mariposa, CA, as a potential short-term rental (STR) investment. This application synthesizes key findings from our detailed report to help you explore the opportunities and challenges. Mariposa County, a primary gateway to Yosemite National Park, offers a compelling STR market. However, the rural nature of this specific property, likely relying on private well and septic systems, alongside a dynamic regulatory landscape and market seasonality, requires careful consideration. This overview provides a high-level summary to begin your exploration.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="stat-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Key Highlights</h3>
+
+                    <ul class="list-disc list-inside space-y-1 text-neutral-700">
+
+                        <li><strong>Prime Location:</strong> Gateway to Yosemite National Park.</li>
+
+                        <li><strong>Strong Tourism Economy:</strong> Growing visitor spending in Mariposa.</li>
+
+                        <li><strong>Rural Property Nuances:</strong> Likely private well/septic systems impacting costs & regulations.</li>
+
+                        <li><strong>Seasonal Market:</strong> High peak season demand, requires off-season strategy.</li>
+
+                        <li><strong>Dynamic Regulations:</strong> Ongoing discussions on STR rules in Mariposa County.</li>
+
+                    </ul>
+
+                </div>
+
+                <div class="info-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Executive Summary Snippet</h3>
+
+                    <p class="text-neutral-700 leading-relaxed">
+
+                        The property's proximity to Yosemite suggests strong revenue potential. However, thorough due diligence is critical. This includes verifying property specifics, assessing private utility systems (well/septic), and understanding local STR regulations. A well-managed, compliant property can thrive, but investors must be aware of operational complexities and financial commitments in this rural, dynamic environment.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+             <div class="bg-stone-100 p-6 rounded-lg shadow">
+
+                <h3 class="text-xl font-semibold text-orange-700 mb-3">Initial Considerations</h3>
+
+                <p class="text-neutral-700 leading-relaxed">
+
+                    The property address (6281 Pine Canyon Rd) indicates a rural setting, meaning reliance on private well and septic systems is highly probable. These systems are subject to specific Mariposa County regulations for STR permits, including inspections and capacity assessments, which directly influence legal occupancy and can involve significant costs. The exact number of bedrooms, bathrooms, and square footage were not available in the initial research and must be verified from the property listing.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <section id="market" class="content-section space-y-6">
+
+            <div class="bg-stone-100 p-6 rounded-lg shadow">
+
+                <h2 class="text-2xl font-semibold text-orange-700 mb-3">Market Deep Dive</h2>
+
+                <p class="text-neutral-700 leading-relaxed">
+
+                    Explore the dynamics of the Mariposa short-term rental market. This section delves into tourism trends, visitor profiles, current STR performance benchmarks, and the competitive landscape, helping you understand the demand and operational context for an STR in this gateway to Yosemite.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <div class="info-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Tourism Trends & Visitor Profile</h3>
+
+                    <p class="text-neutral-700 mb-1">Mariposa County visitor spending: <strong>$433.2M (2023)</strong>, up from $421.7M (2022), still recovering from $464M (2019 pre-pandemic levels; ~$566M adjusted for inflation).</p>
+
+                    <p class="text-neutral-700 mb-1">Yosemite NP Visitors: <strong>3.89M (2023)</strong>, recovering from 2.27M (2020), below 4.42M (2019).</p>
+
+                    <p class="text-neutral-700 mb-1">Visitor Origin (Yosemite): 75% US (62% from CA), 25% International (UK 14%, Germany 13%).</p>
+
+                    <p class="text-neutral-700 mb-1">Average Stay (Yosemite area): <strong>3.5 days</strong> (favors multi-night STR bookings).</p>
+
+                    <p class="text-neutral-700 mb-3"><strong>Seasonality:</strong> Peak Yosemite visits in Aug (593k), Jul (580k), Jun (487k), Oct (488k) in 2023.</p>
+
+                    <div class="chart-container h-64 sm:h-72 md:h-80">
+
+                        <canvas id="visitorSpendingChart"></canvas>
+
+                    </div>
+
+                     <p class="text-center text-sm text-neutral-600 mt-2">Mariposa County Visitor Spending (Millions USD)</p>
+
+                </div>
+
+
+
+                <div class="info-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">STR Performance Benchmarks</h3>
+
+                    <p class="text-neutral-700 mb-1">Typical Mariposa STR: ~230 nights booked/year.</p>
+
+                    <p class="text-neutral-700 mb-1">Median Occupancy: <strong>63%</strong> (Range: 40%-92%).</p>
+
+                    <p class="text-neutral-700 mb-1">Median ADR: <strong>$180</strong> (Range: $161-$599; One 3BR/2BA comp: $264).</p>
+
+                    <p class="text-neutral-700 mb-1">Mariposa March ADR: $396 (vs. Madera $339, Tuolumne $306).</p>
+
+                    <p class="text-neutral-700 mb-3">Typical Host Income (2023): <strong>$41,000</strong> (One comp: $56,938).</p>
+
+                    <div class="chart-container h-64 sm:h-72 md:h-80">
+
+                        <canvas id="adrComparisonChart"></canvas>
+
+                    </div>
+
+                    <p class="text-center text-sm text-neutral-600 mt-2">Average Daily Rate (ADR) Comparison - March</p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-card p-5 rounded-lg shadow">
+
+                <h3 class="text-xl font-semibold text-orange-600 mb-2">Competitive Landscape & Guest Preferences</h3>
+
+                <p class="text-neutral-700 mb-1">Active STRs in Mariposa: <strong>874</strong> (42 applications pending end of 2023).</p>
+
+                <p class="text-neutral-700 font-medium mt-2">Most Sought-After Amenities:</p>
+
+                <ul class="list-disc list-inside space-y-1 text-neutral-700 ml-4">
+
+                    <li>Proximity to Yosemite</li>
+
+                    <li>Outdoor spaces (decks, patios)</li>
+
+                    <li>Unique decor reflecting local history/culture</li>
+
+                    <li>Pools or hot tubs</li>
+
+                    <li>Pet-friendly, Kid-friendly (game rooms, Pack N' Plays)</li>
+
+                    <li>Scenic views, Ample parking, Reliable WiFi (critical due to spotty cell service)</li>
+
+                    <li>Dedicated workspace</li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+
+        <section id="property" class="content-section space-y-6">
+
+            <div class="bg-stone-100 p-6 rounded-lg shadow">
+
+                <h2 class="text-2xl font-semibold text-orange-700 mb-3">Property Specifics & Operational Realities</h2>
+
+                <p class="text-neutral-700 leading-relaxed">
+
+                    This section focuses on the unique aspects of 6281 Pine Canyon Rd and the operational considerations for a rural STR. Understand the implications of its location, potential utility setup (well/septic), and seasonal challenges like winter access. Specific details like bedroom/bathroom count and exact square footage were not in the initial report and must be verified from the Redfin listing.
+
+                </p>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="info-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Location & Access</h3>
+
+                    <p class="text-neutral-700 mb-1"><strong>Rural Setting:</strong> Pine Canyon Rd suggests a location away from town centers.</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Yosemite Proximity:</strong> Key selling point. Mariposa Grove and Yosemite Valley are primary draws (approx. 1-hour drive from Wawona/Mariposa Grove to Valley).</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Winter Access:</strong> Chains often required. Roads can close due to snow/ice, impacting bookings. 4WD vehicles might be advisable for guests.</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Potential Challenges:</strong> Power outages, spotty cell service (making WiFi crucial).</p>
+
+                </div>
+
+                <div class="info-card p-5 rounded-lg shadow clickable-details">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Utilities: Well & Septic Systems</h3>
+
+                    <details>
+
+                        <summary class="text-orange-700 hover:text-orange-800">Septic System Details (Click to Expand)</summary>
+
+                        <div class="mt-2 text-neutral-700 space-y-1">
+
+                            <p><strong>Mandatory Review for STR Permit:</strong> Inspection within last 3 years by Certified Septic Pumper, pumper's report, leachfield flow test.</p>
+
+                            <p><strong>Occupancy Limit:</strong> Tied to septic system's design capacity.</p>
+
+                            <p><strong>Costs:</strong> Pumping $300-$800 (every 3-5 yrs). Full inspection $500-$1,000 (annually recommended).</p>
+
+                            <p><strong>Risk:</strong> Failure can lead to costly repairs/replacement ($5,000-$20,000+).</p>
+
+                        </div>
+
+                    </details>
+
+                    <hr class="my-3">
+
+                    <details>
+
+                        <summary class="text-orange-700 hover:text-orange-800">Private Well Details (Click to Expand)</summary>
+
+                        <div class="mt-2 text-neutral-700 space-y-1">
+
+                            <p><strong>Mandatory Drinking Water Analysis for STR Permit.</strong></p>
+
+                            <p><strong>Maintenance:</strong> Annual inspection, water testing, pump service.</p>
+
+                            <p><strong>Costs:</strong> Annual maintenance $200-$900. Inspections $250-$550.</p>
+
+                            <p><strong>Risk:</strong> Water quality issues (may need purification systems), quantity problems (may need deepening).</p>
+
+                        </div>
+
+                    </details>
+
+                </div>
+
+            </div>
+
+            <div class="info-card p-5 rounded-lg shadow">
+
+                <h3 class="text-xl font-semibold text-orange-600 mb-2">Property Configuration & Other Operations</h3>
+
+                <p class="text-neutral-700 mb-1"><strong>Bedroom Count:</strong> Directly impacts guest capacity and revenue. Properties appealing to families (e.g., 2-3 bedrooms) align well with Yosemite visitor demographics (69% family groups).</p>
+
+                <p class="text-neutral-700 mb-1"><strong>Parking:</strong> 1 space per rented bedroom required, must be accessible.</p>
+
+                <p class="text-neutral-700 mb-1"><strong>Guest Notices:</strong> Emergency info, quiet hours (10pm-8am), water/energy conservation measures must be posted.</p>
+
+                <p class="text-neutral-700"><strong>Building Codes:</strong> Must conform to health, safety, welfare requirements (Chief Building Inspector approval).</p>
+
+            </div>
+
+        </section>
+
+
+
+        <section id="financials" class="content-section space-y-6">
+
+            <div class="bg-stone-100 p-6 rounded-lg shadow">
+
+                <h2 class="text-2xl font-semibold text-orange-700 mb-3">Financial Outlook</h2>
+
+                <p class="text-neutral-700 leading-relaxed">
+
+                    Dive into the financial aspects of investing in this Mariposa STR. This section covers estimated acquisition costs, ongoing operational expenses, potential revenue, and ROI considerations, providing a framework for your financial due diligence. Note that the specific purchase price for 6281 Pine Canyon Rd needs to be obtained from the listing.
+
+                </p>
+
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <div class="info-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Acquisition Costs (Estimates)</h3>
+
+                    <p class="text-neutral-700 mb-1"><strong>Purchase Price:</strong> Verify from listing. Mariposa Co. median home value $200,834; owner-occ median $358,000 (2019-23). Zip 95338 median market value $214,864 (75th percentile $322,989).</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Closing Costs:</strong> Budget for title, escrow, lender fees.</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Property Taxes:</strong> Mariposa Co. median effective rate 1.02%. Median annual tax bill $2,100 (Zip 95338 median $2,100, 75th percentile $3,141).</p>
+
+                </div>
+
+                <div class="info-card p-5 rounded-lg shadow">
+
+                     <h3 class="text-xl font-semibold text-orange-600 mb-2">Potential Revenue & ROI</h3>
+
+                    <p class="text-neutral-700 mb-1">Typical Annual Revenue (Mariposa STR 2023): <strong>$41,000</strong>.</p>
+
+                    <p class="text-neutral-700 mb-1">Comparable Property Example: $56,938 annual revenue (61.3% occupancy, $264 ADR).</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Seasonality is key:</strong> Dynamic pricing needed for peak (summer/fall) and off-peak.</p>
+
+                    <p class="text-neutral-700 mb-1">Comparable Property Cap Rate Example: <strong>9.9%</strong> (highly dependent on actuals).</p>
+
+                    <p class="text-neutral-700">Long-term appreciation in tourism-driven market is also a factor.</p>
+
+                </div>
+
+            </div>
+
+             <div class="info-card p-5 rounded-lg shadow">
+
+                <h3 class="text-xl font-semibold text-orange-600 mb-2">Operational Costs (Annual Estimates)</h3>
+
+                 <div class="chart-container h-[400px] sm:h-[450px] md:h-[500px] max-h-[550px]">
+
+                    <canvas id="operationalCostsChart"></canvas>
+
+                </div>
+
+                <p class="text-center text-sm text-neutral-600 mt-2">Estimated Annual Operational Cost Breakdown (Illustrative)</p>
+
+                <div class="mt-4 text-sm text-neutral-600 space-y-1">
+
+                    <p><strong>Utilities:</strong> Electricity $2,388-$2,808 (avg. $2,600). Propane (if used) $2.64/gallon (e.g., $528/fill for 250gal tank, multiple fills/year possible).</p>
+
+                    <p><strong>Property Management:</strong> Starts at 15% of revenue (e.g., $6,150 on $41k revenue).</p>
+
+                    <p><strong>Cleaning:</strong> Highly variable (e.g., $55-$149+ per turnover, 50-100 turnovers/yr = $2,750-$14,900+).</p>
+
+                    <p><strong>Insurance:</strong> Specialized STR insurance needed (e.g. $2,000-$4,000 estimate, varies widely).</p>
+
+                    <p><strong>Well/Septic Maintenance:</strong> Annual septic inspection ($500-$1000), pumping every 3-5 yrs ($300-$800, avg $150/yr). Well maint/insp ($200-$900, avg $550/yr).</p>
+
+                    <p><strong>General Maintenance/Supplies:</strong> Budget 5-10% of revenue.</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <section id="risks" class="content-section space-y-6">
+
+            <div class="bg-stone-100 p-6 rounded-lg shadow">
+
+                <h2 class="text-2xl font-semibold text-orange-700 mb-3">Risks & Regulatory Landscape</h2>
+
+                <p class="text-neutral-700 leading-relaxed">
+
+                    Understand the potential risks and the evolving regulatory environment for STRs in Mariposa County. This section highlights key regulatory requirements, proposed changes, market risks, and property-specific operational challenges. Staying informed is crucial.
+
+                </p>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="info-card p-5 rounded-lg shadow clickable-details">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Regulatory Snapshot & Obligations</h3>
+
+                    <details>
+
+                        <summary class="text-orange-700 hover:text-orange-800">Permitting (Click to Expand)</summary>
+
+                        <div class="mt-2 text-neutral-700 space-y-1">
+
+                            <p><strong>STR Permit Required:</strong> From Mariposa County.</p>
+
+                            <p><strong>TOT Certificate Required.</strong></p>
+
+                            <p><strong>Septic System Review:</strong> Inspection, pumper's report, flow test. Occupancy based on capacity.</p>
+
+                            <p><strong>Drinking Water Analysis.</strong></p>
+
+                        </div>
+
+                    </details>
+
+                    <hr class="my-3">
+
+                    <details>
+
+                        <summary class="text-orange-700 hover:text-orange-800">Financial & Operational Rules (Click to Expand)</summary>
+
+                        <div class="mt-2 text-neutral-700 space-y-1">
+
+                           <p><strong>Taxes:</strong> Collect & remit 12% Transient Occupancy Tax (TOT) + 1.5% TBID assessment.</p>
+
+                           <p><strong>Parking:</strong> 1 space per rented bedroom.</p>
+
+                           <p><strong>Quiet Hours:</strong> 10:00 p.m. to 8:00 a.m.</p>
+
+                           <p><strong>Notices:</strong> Emergency, quiet hours, conservation measures in unit.</p>
+
+                           <p><strong>Codes:</strong> Comply with building codes (health, safety, welfare).</p>
+
+                        </div>
+
+                    </details>
+
+                </div>
+
+                <div class="info-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Evolving Regulations & Community Concerns</h3>
+
+                    <p class="text-neutral-700 mb-1"><strong>Dynamic Environment:</strong> Rules can change.</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Proposed Changes:</strong> Possible increase in max bedrooms (3 to 5), potential Housing Trust Fund from TOT, discussions on STR permit caps or limits on non-hosted STRs.</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Community Concerns:</strong> Housing affordability, workforce housing, neighborhood character (noise, traffic).</p>
+
+                    <p class="text-neutral-700 font-medium"><strong>Critical: STR permits DO NOT currently "run with the land" in Mariposa County.</strong> New owner likely needs new application.</p>
+
+                    <p class="text-neutral-700 mt-2"><strong>Action:</strong> Stay informed via Mariposa County Planning Department.</p>
+
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="info-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Market & Operational Risks</h3>
+
+                    <p class="text-neutral-700 mb-1"><strong>Yosemite Access:</strong> Park closures (snow, fire), reservation systems can impact demand.</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Seasonality:</strong> Fluctuating revenue, need for financial buffer and flexible pricing.</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Well/Septic Reliability:</strong> Malfunctions can be costly and impact operations/occupancy.</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Winter Accessibility:</strong> Road closures, need for chains/4WD for guests.</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Rural Issues:</strong> Power outages, spotty cell service (emphasizes WiFi need).</p>
+
+                </div>
+
+                <div class="info-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Property-Specific Risks</h3>
+
+                    <p class="text-neutral-700 mb-1"><strong>Condition:</strong> Age of property, roof, HVAC, etc., can lead to unexpected maintenance. Verify from listing/inspection.</p>
+
+                    <p class="text-neutral-700 mb-1"><strong>Features:</strong> Wood-burning stoves (common in area) require maintenance and safety precautions.</p>
+
+                    <p class="text-neutral-700"><strong>Compliance:</strong> Health Dept. & fire agency approval needed for structure/facilities.</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <section id="verdict" class="content-section space-y-6">
+
+            <div class="bg-stone-100 p-6 rounded-lg shadow">
+
+                <h2 class="text-2xl font-semibold text-orange-700 mb-3">Investment Verdict & Next Steps</h2>
+
+                <p class="text-neutral-700 leading-relaxed">
+
+                    Based on the comprehensive analysis, this section provides concluding thoughts on the investment potential of 6281 Pine Canyon Rd as an STR and outlines recommended next steps for prospective investors. The property shows promise but success hinges on diligent preparation and proactive management.
+
+                </p>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="stat-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Summary of Potential</h3>
+
+                    <p class="text-neutral-700 leading-relaxed">
+
+                        6281 Pine Canyon Rd offers significant STR potential due to Mariposa's strong tourism market driven by Yosemite. Healthy occupancy and ADRs are achievable. However, its rural nature introduces specific infrastructure (well/septic) and accessibility considerations that are critical.
+
+                    </p>
+
+                </div>
+
+                 <div class="info-card p-5 rounded-lg shadow">
+
+                    <h3 class="text-xl font-semibold text-orange-600 mb-2">Key Success Factors</h3>
+
+                    <ul class="list-disc list-inside space-y-1 text-neutral-700">
+
+                        <li><strong>Thorough Due Diligence:</strong> Verify all property specifics (size, condition). CRITICAL: Professional well & septic inspections BEFORE purchase.</li>
+
+                        <li><strong>Proactive Management:</strong> Dynamic pricing for seasonality, clear guest communication (winter access, rural realities), diligent maintenance.</li>
+
+                        <li><strong>Regulatory Awareness:</strong> Continuously monitor Mariposa County STR ordinances and adapt.</li>
+
+                        <li><strong>Financial Prudence:</strong> Realistic budgeting for all costs, maintain a financial buffer.</li>
+
+                        <li><strong>Consider Professional Management:</strong> Especially if not local or new to STRs.</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="bg-amber-100 border-l-4 border-orange-500 text-orange-700 p-4 mt-6 rounded-md shadow" role="alert">
+
+                <p class="font-bold">Overall Recommendation</p>
+
+                <p>Promising investment opportunity, but success requires a well-informed, diligent, and adaptive approach to manage the unique aspects of a rural STR in a dynamic market and regulatory environment.</p>
+
+            </div>
+
+            <div class="info-card p-5 rounded-lg shadow mt-6">
+
+                <h3 class="text-xl font-semibold text-orange-600 mb-3">Recommended Next Steps</h3>
+
+                <ol class="list-decimal list-inside space-y-2 text-neutral-700">
+
+                    <li><strong>Verify Property Details:</strong> Obtain full details from the Redfin listing (price, bed/bath, sqft, lot size, features, condition).</li>
+
+                    <li><strong>Site Visit & Professional Inspections:</strong> Conduct a thorough property inspection, with special emphasis on certified inspections for the well and septic systems (capacity, condition, compliance).</li>
+
+                    <li><strong>Develop Detailed Financial Model:</strong> Use actual property price and refined cost estimates to project ROI.</li>
+
+                    <li><strong>Consult Local Experts:</strong> Speak with Mariposa County Planning Department about current STR regulations for this specific property. Consider consulting local STR managers or real estate agents specializing in STRs.</li>
+
+                    <li><strong>Assess Personal Fit:</strong> Evaluate if the hands-on nature of managing a rural STR (or the cost of professional management) aligns with your investment goals and capabilities.</li>
+
+                </ol>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <footer class="text-center p-4 text-sm text-neutral-600 border-t border-stone-200 mt-12">
+
+        <p>&copy; <span id="currentYear"></span> Mariposa STR Investment Navigator. For informational purposes only.</p>
+
+        <p>Data derived from "Investment Analysis: Short-Term Rental Potential of 6281 Pine Canyon Rd, Mariposa, CA 95338".</p>
+
+    </footer>
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const contentSections = document.querySelectorAll('.content-section');
+
+
+
+            function showSection(targetId) {
+
+                contentSections.forEach(section => {
+
+                    section.classList.remove('active');
+
+                    if (section.id === targetId) {
+
+                        section.classList.add('active');
+
+                    }
+
+                });
+
+                navLinks.forEach(link => {
+
+                    link.classList.remove('active', 'border-amber-200');
+
+                    link.classList.add('border-transparent');
+
+                    if (link.dataset.target === targetId) {
+
+                        link.classList.add('active', 'border-amber-200');
+
+                        link.classList.remove('border-transparent');
+
+                    }
+
+                });
+
+                window.scrollTo(0,0);
+
+            }
+
+
+
+            navLinks.forEach(link => {
+
+                link.addEventListener('click', function () {
+
+                    showSection(this.dataset.target);
+
+                });
+
+            });
+
+            
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+
+
+            showSection('overview'); 
+
+
+
+            const visitorSpendingCtx = document.getElementById('visitorSpendingChart')?.getContext('2d');
+
+            if (visitorSpendingCtx) {
+
+                new Chart(visitorSpendingCtx, {
+
+                    type: 'bar',
+
+                    data: {
+
+                        labels: ['2019 (Pre-Pandemic)', '2022', '2023'],
+
+                        datasets: [{
+
+                            label: 'Visitor Spending ($M)',
+
+                            data: [464, 421.7, 433.2],
+
+                            backgroundColor: ['rgba(234, 88, 12, 0.6)', 'rgba(249, 115, 22, 0.6)', 'rgba(251, 146, 60, 0.6)'],
+
+                            borderColor: ['rgba(234, 88, 12, 1)', 'rgba(249, 115, 22, 1)', 'rgba(251, 146, 60, 1)'],
+
+                            borderWidth: 1
+
+                        }]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        scales: { y: { beginAtZero: true, title: { display: true, text: 'Millions USD'} } }
+
+                    }
+
+                });
+
+            }
+
+
+
+            const adrComparisonCtx = document.getElementById('adrComparisonChart')?.getContext('2d');
+
+            if (adrComparisonCtx) {
+
+                new Chart(adrComparisonCtx, {
+
+                    type: 'bar',
+
+                    data: {
+
+                        labels: ['Mariposa', 'Madera', 'Tuolumne'],
+
+                        datasets: [{
+
+                            label: 'ADR ($) - March',
+
+                            data: [396, 339, 306],
+
+                            backgroundColor: ['rgba(234, 88, 12, 0.6)', 'rgba(249, 115, 22, 0.6)', 'rgba(251, 146, 60, 0.6)'],
+
+                            borderColor: ['rgba(234, 88, 12, 1)', 'rgba(249, 115, 22, 1)', 'rgba(251, 146, 60, 1)'],
+
+                            borderWidth: 1
+
+                        }]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        scales: { y: { beginAtZero: true, title: {display: true, text: 'Average Daily Rate (USD)'} } }
+
+                    }
+
+                });
+
+            }
+
+            
+
+            const operationalCostsCtx = document.getElementById('operationalCostsChart')?.getContext('2d');
+
+            if (operationalCostsCtx) {
+
+                 new Chart(operationalCostsCtx, {
+
+                    type: 'pie',
+
+                    data: {
+
+                        labels: ['Utilities (Elec/Propane)', 'Mgmt (15%)', 'Cleaning (Avg)', 'Insurance (Est)', 'Well/Septic Maint.', 'Gen. Maint (7.5%)'],
+
+                        datasets: [{
+
+                            label: 'Estimated Annual Operational Costs',
+
+                            data: [3000, 6150, 5000, 3000, 700, 3075], 
+
+                            backgroundColor: [
+
+                                'rgba(251, 146, 60, 0.7)', // orange-400
+
+                                'rgba(253, 186, 116, 0.7)', // orange-300
+
+                                'rgba(252, 211, 153, 0.7)', // orange-200
+
+                                'rgba(249, 115, 22, 0.7)', // orange-500
+
+                                'rgba(234, 88, 12, 0.7)', // orange-600
+
+                                'rgba(194, 65, 12, 0.7)' // orange-700
+
+                            ],
+
+                            borderColor: [
+
+                                'rgba(251, 146, 60, 1)',
+
+                                'rgba(253, 186, 116, 1)',
+
+                                'rgba(252, 211, 153, 1)',
+
+                                'rgba(249, 115, 22, 1)',
+
+                                'rgba(234, 88, 12, 1)',
+
+                                'rgba(194, 65, 12, 1)'
+
+                            ],
+
+                            borderWidth: 1
+
+                        }]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        plugins: {
+
+                            tooltip: {
+
+                                callbacks: {
+
+                                    label: function(context) {
+
+                                        let label = context.label || '';
+
+                                        if (label) {
+
+                                            label += ': ';
+
+                                        }
+
+                                        if (context.parsed !== null) {
+
+                                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed);
+
+                                        }
+
+                                        return label;
+
+                                    }
+
+                                }
+
+                            },
+
+                            legend: {
+
+                                position: 'bottom',
+
+                                labels: {
+
+                                    boxWidth: 20,
+
+                                    padding: 15,
+
+                                     font: { size: 10 }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                });
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
